@@ -16,9 +16,7 @@ export class HistoriqueService {
     const historiques = await this.historiqueRepository.find({
       order: { date_creation: 'DESC' },
     });
-    if (!historiques) {
-      throw new NotFoundException('Aucune historique trouvée');
-    }
+
     return historiques.map((historique) => ({
       id: historique.id,
       date_creation: historique.date_creation,
@@ -36,9 +34,7 @@ export class HistoriqueService {
       where: { id_demande: id_d },
       order: { date_creation: 'DESC' },
     });
-    if (!historiques) {
-      throw new NotFoundException('Aucun historique trouvée');
-    }
+
     return historiques.map((historique) => ({
       id: historique.id,
       date_creation: historique.date_creation,

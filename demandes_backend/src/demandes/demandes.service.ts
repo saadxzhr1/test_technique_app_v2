@@ -24,9 +24,7 @@ export class DemandesService {
       where: { supprimer: false },
       order: { date_creation: 'DESC' },
     });
-    if (!demandes) {
-      throw new NotFoundException('Aucune demande trouvée');
-    }
+
     return demandes.map((demande) => ({
       id: demande.id,
       titre: demande.titre,
