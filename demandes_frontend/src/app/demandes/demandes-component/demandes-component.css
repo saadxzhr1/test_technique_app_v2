@@ -1,0 +1,120 @@
+
+table{
+    width:100%;
+    border-collapse:collapse; 
+    background-color: rgba(175, 213, 225, 0.134);
+}
+th{
+    border:1px solid #ddd;padding:8px;background:#8fc8dc33;
+}
+td{
+    border:1px solid #ddd;padding:8px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  /* flex-wrap: wrap; */
+}
+
+#filter-add{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 1rem 0px;
+}
+
+#delete-button {
+  background-color: rgba(255, 0, 0, 0.332);
+}
+
+#modify-btn{
+  background-color: rgba(76, 200, 126, 0.838);
+  color: aliceblue;
+}
+button {
+  border-radius: 5px;
+}
+
+#add-btn{
+  background-color: rgba(27, 106, 124, 0.933);
+  color: aliceblue;
+}
+
+
+.form-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background-color: #1e2f3f;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.form-inputs {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  flex-wrap: wrap;  /* inputs wrap among themselves before touching buttons */
+  min-width: 0;
+}
+
+.form-container input,
+.form-container select {
+  padding: 8px 12px;
+  border: 1px solid #3a4f63;
+  border-radius: 4px;
+  background-color: #162433;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  min-width: 120px;
+  flex: 1;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.form-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.form-actions button:first-child {
+  background-color: #5b8fb9;
+  color: #fff;
+}
+
+.form-actions button:last-child {
+  background-color: #3a4f63;
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-inputs {
+    flex-direction: column;
+  }
+
+  .form-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+input[name="details"] {
+  field-sizing: content;
+}

@@ -1,0 +1,73 @@
+
+    <div id="filter-add">
+    <mat-form-field>
+      <mat-label>Filtrer par status</mat-label>
+      <mat-select [(ngModel)]="selectedStatus">
+        <mat-option value="">Toutes</mat-option>
+        @for (status of statusOptions; track status) {
+          <mat-option [value]="status">{{ status }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    
+
+    <!-- Ouvrire pop up (creer / modifier un autrre button) -->
+    <button (click)="openCreate()" matButton="tonal" id="add-btn">Ajouter demande</button>
+    </div>
+
+    <!-- Form (shown/hide) -->
+    @if (showForm) {
+      <div class="form-container">
+        <div class="form-inputs">
+          <input [(ngModel)]="form.titre" name="titre" placeholder="Titre" />
+          <input [(ngModel)]="form.details" name="details" placeholder="Détails" />
+          <select [(ngModel)]="form.status" name="status">
+            @for (s of statusOptions; track s) {
+              <option [value]="s">{{ s }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-actions">
+          <button (click)="submit()">{{ editingId ? 'Modifier' : 'Créer' }}</button>
+          <button (click)="cancel()">Annuler</button>
+        </div>
+      </div>
+    }
+
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Titre</th><th>Details</th><th>Status</th><th>Date de Creation</th><th>Date Derniere Modification</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        @for (demande of filteredDemandes; track demande.id) {
+          <tr>
+            <td>{{ demande.id }}</td>
+            <td>{{ demande.titre }}</td>
+            <td>{{ demande.details}}</td>
+            <td>{{ demande.status }}</td>
+            <td>{{ demande.dateCreation | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{ demande.dateDerniereModification | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td class="buttons">
+              <button (click)="toggleHistorique(demande.id)" matButton="tonal" >
+                {{ expandedId === demande.id ? 'Fermer' : 'Voir Historique' }}
+              </button>
+                <button (click)="openEdit(demande)" matButton="tonal" id="modify-btn">Modifier</button>
+            </td>
+            <td>
+                <button type="button" (click)="deleteDemande(demande.id)" matFab id="delete-button"><mat-icon>delete</mat-icon></button>
+
+            </td>
+            </tr>
+
+          @if (expandedId === demande.id) {
+            <tr>
+              <td colspan="7">
+                <app-historique-component [demandeId]="demande.id" />
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+
