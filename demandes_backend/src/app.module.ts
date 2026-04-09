@@ -6,6 +6,7 @@ import { DemandesModule } from './demandes/demandes.module';
 import { DataSource } from 'typeorm';
 import { HistoriqueModule } from './historique/historique.module';
 import { ConfigModule } from '@nestjs/config';
+import { addTransactionalDataSource } from 'typeorm-transactional';
 
 @Module({
   imports: [
@@ -27,5 +28,7 @@ import { ConfigModule } from '@nestjs/config';
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) {}
+  constructor(private dataSource: DataSource) {
+    addTransactionalDataSource(dataSource);
+  }
 }
