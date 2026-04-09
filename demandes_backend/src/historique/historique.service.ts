@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HistoriqueResponseDto } from './dto/responseHistorique.dto';
 import { Historique } from './entities/historique.entity';
 import { InjectRepository } from '@nestjs/typeorm';

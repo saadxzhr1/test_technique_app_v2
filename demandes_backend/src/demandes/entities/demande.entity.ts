@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { DemandesStatus } from '../enums/demandesStatus.enum';
 
 @Entity()
 export class Demandes {
@@ -16,7 +17,7 @@ export class Demandes {
   @Column()
   details!: string;
 
-  @Column()
+  @Column({ type: 'enum', enum: DemandesStatus })
   status!: string;
 
   @Column()
@@ -25,7 +26,6 @@ export class Demandes {
   @Column()
   date_creation?: Date;
 
-  @Column()
   @UpdateDateColumn()
   date_der_mod?: Date;
 }
