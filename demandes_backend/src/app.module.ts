@@ -7,6 +7,7 @@ import { DataSource } from 'typeorm';
 import { HistoriqueModule } from './historique/historique.module';
 import { ConfigModule } from '@nestjs/config';
 import { addTransactionalDataSource } from 'typeorm-transactional';
+import { UtilisateursModule } from './utilisateurs/utilisateurs.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
     }),
     DemandesModule,
     HistoriqueModule,
+    UtilisateursModule,
   ],
   controllers: [AppController],
   providers: [AppService],

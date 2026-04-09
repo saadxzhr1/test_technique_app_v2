@@ -7,16 +7,16 @@ import { Demandes } from './entities/demande.entity';
 import { DemandesResponseDto } from './dto/demandesResponse.dto';
 import { HistoriqueService } from 'src/historique/historique.service';
 import { Transactional } from 'typeorm-transactional';
+import { UtilisateursService } from 'src/utilisateurs/utilisateurs.service';
 
 @Injectable()
 export class DemandesService {
-  utilisateur: string = 'testUser';
-
   // Injecter le repository
   constructor(
     @InjectRepository(Demandes)
     private demandesRepository: Repository<Demandes>,
     private historiqueService: HistoriqueService,
+    private utilisateursService: UtilisateursService,
   ) {}
 
   // Charger tous les demandes
@@ -53,6 +53,7 @@ export class DemandesService {
   // Ajouter demande
   @Transactional()
   async create(createDemandeDto: CreateDemandeDto) {
+    const utilisateur = await this.utilisateursService.findOne(1);
     const demande = this.demandesRepository.create({
       ...createDemandeDto,
       supprimer: false,
@@ -60,7 +61,7 @@ export class DemandesService {
     await this.demandesRepository.save(demande);
     await this.historiqueService.auditDemandes(
       demande.id,
-      this.utilisateur,
+      utilisateur,
       'CREATION',
       '_',
       `Titre: ${demande.titre} | Status: ${demande.status} | Details: ${demande.details}`,
@@ -71,6 +72,7 @@ export class DemandesService {
   // Modifier demande
   @Transactional()
   async update(id: number, updateDemandeDto: UpdateDemandeDto) {
+    const utilisateur = await this.utilisateursService.findOne(1);
     const demande = await this.demandesRepository.findOneBy({ id });
     if (!demande) {
       throw new NotFoundException(`Demande ${id} non trouvée`);
@@ -80,7 +82,7 @@ export class DemandesService {
     await this.demandesRepository.save(demande);
     await this.historiqueService.auditDemandes(
       id,
-      this.utilisateur,
+      utilisateur,
       'MODIFICATION',
       ancienneValeur,
       `Titre: ${updateDemandeDto.titre ?? demande.titre} | Status: ${updateDemandeDto.status ?? demande.status} | Details: ${updateDemandeDto.details ?? demande.details}`,
@@ -91,6 +93,7 @@ export class DemandesService {
   // Supprimer demande (soft delete)
   @Transactional()
   async remove(id: number) {
+    const utilisateur = await this.utilisateursService.findOne(1);
     const demande = await this.demandesRepository.findOneBy({ id });
     if (!demande) {
       throw new NotFoundException(`Demande ${id} non trouvée`);
@@ -101,7 +104,7 @@ export class DemandesService {
     await this.demandesRepository.save(demande);
     await this.historiqueService.auditDemandes(
       id,
-      this.utilisateur,
+      utilisateur,
       'SUPPRESSION',
       ancienne_valeur,
       String('Supprimer: ' + true),

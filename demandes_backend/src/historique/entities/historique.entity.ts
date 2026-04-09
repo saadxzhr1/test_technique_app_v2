@@ -1,7 +1,10 @@
+import { Utilisateurs } from 'src/utilisateurs/entities/utilisateurs.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -19,8 +22,9 @@ export class Historique {
   @Column()
   id_demande!: number;
 
-  @Column()
-  utilisateur!: string;
+  @ManyToOne(() => Utilisateurs, { eager: true })
+  @JoinColumn({ name: 'utilisateur' })
+  utilisateur!: Utilisateurs;
 
   @Column({ type: 'text', nullable: true })
   ancienne_valeur?: string;

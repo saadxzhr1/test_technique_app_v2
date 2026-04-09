@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param, ParseIntPipe } from '@nestjs/common';
 import { HistoriqueResponseDto } from './dto/responseHistorique.dto';
 import { Historique } from './entities/historique.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Utilisateurs } from 'src/utilisateurs/entities/utilisateurs.entity';
 
 @Injectable()
 export class HistoriqueService {
@@ -22,14 +23,16 @@ export class HistoriqueService {
       date_creation: historique.date_creation,
       type_action: historique.type_action,
       id_demande: historique.id_demande,
-      utilisateur: historique.utilisateur,
+      utilisateur: historique.utilisateur.nom_utilisateur,
       ancienne_valeur: historique.ancienne_valeur,
       nouvelle_valeur: historique.nouvelle_valeur,
     }));
   }
 
   // Charger les historiques d'une demande
-  async findSome(id_d: number): Promise<HistoriqueResponseDto[]> {
+  async findSome(
+    @Param('id_d', ParseIntPipe) id_d: number,
+  ): Promise<HistoriqueResponseDto[]> {
     const historiques = await this.historiqueRepository.find({
       where: { id_demande: id_d },
       order: { date_creation: 'DESC' },
@@ -40,7 +43,7 @@ export class HistoriqueService {
       date_creation: historique.date_creation,
       type_action: historique.type_action,
       id_demande: historique.id_demande,
-      utilisateur: historique.utilisateur,
+      utilisateur: historique.utilisateur.nom_utilisateur,
       ancienne_valeur: historique.ancienne_valeur,
       nouvelle_valeur: historique.nouvelle_valeur,
     }));
@@ -49,7 +52,7 @@ export class HistoriqueService {
   // Enregistrer les actions sur demandes
   async auditDemandes(
     id_demande: number,
-    utilisateur: string,
+    utilisateur: Utilisateurs,
     type_action: 'MODIFICATION' | 'SUPPRESSION' | 'CREATION',
     ancienne_valeur: string,
     nouvelle_valeur: string | null,
