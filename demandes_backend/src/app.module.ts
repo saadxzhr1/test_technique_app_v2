@@ -9,9 +9,11 @@ import { ConfigModule } from '@nestjs/config';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { UtilisateursModule } from './utilisateurs/utilisateurs.module';
 
+// The root module. It's the starting point of the dependency injection tree.
+// NestJS reads it to know what exists in the application.
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true }), // load .env file, make variables available
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,

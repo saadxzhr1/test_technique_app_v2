@@ -106,12 +106,12 @@ export class DemandesComponent {
   if (this.editingId) {
     this.demandesService.updateDemande(this.editingId, this.form).subscribe({
       next: (response) => { 
-        
+        this.showForm = false; 
         this.editingId = null;
         this.cdr.detectChanges();
-        alert(response.message);
         this.loadDemandes();
-        this.showForm = false; 
+        alert(response.message);
+        
       },
       error: (err) => console.error(err)
     });
@@ -120,8 +120,8 @@ export class DemandesComponent {
       next: (response) => { 
         this.showForm = false; 
         this.cdr.detectChanges();
-        alert(response.message);
         this.loadDemandes(); 
+        alert(response.message);
       },
       error: (err) => console.error(err)
     });

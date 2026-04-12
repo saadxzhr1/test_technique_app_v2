@@ -55,7 +55,7 @@ export class DemandesService {
   async create(createDemandeDto: CreateDemandeDto) {
     const utilisateur = await this.utilisateursService.findOne(1);
     const demande = this.demandesRepository.create({
-      ...createDemandeDto,
+      ...createDemandeDto, // spread operator, copie les propriétés de createDemandeDto
       supprimer: false,
     });
     await this.demandesRepository.save(demande);

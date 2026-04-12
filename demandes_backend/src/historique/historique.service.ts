@@ -1,4 +1,4 @@
-import { Injectable, Param, ParseIntPipe } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HistoriqueResponseDto } from './dto/responseHistorique.dto';
 import { Historique } from './entities/historique.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -30,9 +30,7 @@ export class HistoriqueService {
   }
 
   // Charger les historiques d'une demande
-  async findSome(
-    @Param('id_d', ParseIntPipe) id_d: number,
-  ): Promise<HistoriqueResponseDto[]> {
+  async findSome(id_d: number): Promise<HistoriqueResponseDto[]> {
     const historiques = await this.historiqueRepository.find({
       where: { id_demande: id_d },
       order: { date_creation: 'DESC' },
