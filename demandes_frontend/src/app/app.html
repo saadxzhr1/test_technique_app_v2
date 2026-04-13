@@ -5,7 +5,9 @@
       <app-demandes-component />
     </mat-tab>
     <mat-tab label="Historique">
-      <app-historique-component />
+      <ng-template matTabContent>
+        <app-historique-component />
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
 </main>

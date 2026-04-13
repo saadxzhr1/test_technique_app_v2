@@ -74,6 +74,7 @@ export class DemandesComponent {
   }
 
   // Creer ou modifier une demande //
+  // form
   showForm = false;
   editingId: number | null = null
   form = {
@@ -137,7 +138,7 @@ export class DemandesComponent {
     }
     this.demandesService.deleteDemande(id).subscribe({
       next: (response) => {
-        this.demandes = this.demandes.filter(demande => demande.id !== id);
+        // this.demandes = this.demandes.filter(demande => demande.id !== id);
         this.loadDemandes();
         alert(response.message);
       },

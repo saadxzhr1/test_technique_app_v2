@@ -25,7 +25,6 @@ export class DemandesService {
       where: { supprimer: false },
       order: { date_creation: 'DESC' },
     });
-
     return demandes.map((demande) => ({
       id: demande.id,
       titre: demande.titre,

@@ -22,9 +22,13 @@ export class HistoriqueComponent {
   
   // Charger l'historique par id demande / ou tous
   ngOnInit() {
+    console.log('historique ngOnInit fired');
     this.historiques$ = this.demandeId
     ? this.historiqueService.getHistoriquesByDemandeId(this.demandeId)
     : this.historiqueService.getHistoriques();
   }
 
+  ngOnDestroy() {
+    console.log('historique destroyed');
+  }
 }

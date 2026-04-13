@@ -16,11 +16,6 @@ import { DemandesResponseDto } from './dto/demandesResponse.dto';
 export class DemandesController {
   constructor(private readonly demandesService: DemandesService) {}
 
-  @Post()
-  create(@Body() createDemandeDto: CreateDemandeDto) {
-    return this.demandesService.create(createDemandeDto);
-  }
-
   @Get()
   async findAll(): Promise<DemandesResponseDto[]> {
     return await this.demandesService.findAll();
@@ -29,6 +24,11 @@ export class DemandesController {
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.demandesService.findOne(id);
+  }
+
+  @Post()
+  create(@Body() createDemandeDto: CreateDemandeDto) {
+    return this.demandesService.create(createDemandeDto);
   }
 
   @Patch(':id')
