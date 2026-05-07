@@ -1,4 +1,4 @@
-# Test technique — Gestion de demandes
+# Gestion de demandes
 
 ## Objectif
 Mini-application de gestion de demandes avec traçabilité des actions.
